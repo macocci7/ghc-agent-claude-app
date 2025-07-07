@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# データベース名入力
+echo "Enter database name to import:"
+read database_name
+
+# dumpフォルダのファイル一覧表示
+echo "Available dump files:"
+files=($(ls dump/*.sql 2>/dev/null))
+
+if [ ${#files[@]} -eq 0 ]; then
+    echo "No SQL files found in dump/ directory."
+    exit 1
+fi
+
+# ファイル選択用のメニュー表示
+echo "Please select a file by number:"
+select filename in "${files[@]##*/}"; do
+    if [ -n "$filename" ]; then
+        echo "Selected: $filename"
+        break
+    else
+        echo "Invalid selection. Please try again."
+    fi
+done
+
+# インポート実行
+docker compose exec -T mariadb mariadb --defaults-extra-file=/dump/.my.cnf $database_name < dump/$filename
