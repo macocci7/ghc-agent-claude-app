@@ -1,0 +1,15 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "^12"
+    },
+    "scripts": {
+        "test-unit": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html test_coverage --testsuite Unit",
+        "test-http": "vendor/bin/phpunit --testsuite Http"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Tests\\": "tests/"
+        }
+    }
+}

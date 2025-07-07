@@ -1,0 +1,42 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/web/Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html:/var/www/html
+    depends_on:
+      - mariadb
+    environment:
+      - APP_ENV=development
+    networks:
+      - app-network
+
+  mariadb:
+    image: mariadb:11.8.2
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: login_app
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: app_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mariadb/data:/var/lib/mysql
+      - ./dump:/dump
+    networks:
+      - app-network
+
+  mailpit:
+    image: axllent/mailpit:v1.26.2
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

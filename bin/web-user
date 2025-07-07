@@ -1,0 +1,2 @@
+#!/bin/bash
+docker compose exec --user ec2-user web bash

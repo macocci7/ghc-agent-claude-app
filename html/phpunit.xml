@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" bootstrap="bootstrap.php" colors="true" testdox="true" beStrictAboutOutputDuringTests="true" displayDetailsOnTestsThatTriggerErrors="true" displayDetailsOnTestsThatTriggerWarnings="true" displayDetailsOnTestsThatTriggerDeprecations="true" displayDetailsOnTestsThatTriggerNotices="true" processIsolation="false" stopOnFailure="false">
+  <testsuites>
+    <testsuite name="Unit">
+      <directory suffix="Test.php">./tests/Unit/app</directory>
+      <directory suffix="Test.php">./tests/Unit/libs</directory>
+    </testsuite>
+    <testsuite name="Http">
+      <directory suffix="Test.php">./tests/Http</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">./libs</directory>
+      <file>./app/Controllers/ControllerBase.php</file>
+      <file>./app/Logics/LogicBase.php</file>
+      <file>./app/Models/ModelBase.php</file>
+      <file>./app/Validators/ValidatorBase.php</file>
+    </include>
+  </source>
+  <php>
+    <env name="APP_ENV" value="testing"/>
+  </php>
+</phpunit>
